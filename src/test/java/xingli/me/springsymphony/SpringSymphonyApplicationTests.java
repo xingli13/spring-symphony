@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"})
+@CucumberOptions(plugin = {"pretty"}, glue = {"me.xingli.springsymphony.cucumber","cucumber.api.spring"})
 public class SpringSymphonyApplicationTests {
 
 //	@Test
