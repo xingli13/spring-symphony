@@ -1,7 +1,8 @@
 package xingli.me.springsymphony.controlller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import xingli.me.springsymphony.domain.User;
 
 /**
  * @author xingli13
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserController {
-	@GetMapping
-	public String hello(){
-		return "hello";
+	@PostMapping("/join")
+	public String newUserJoin(User user){
+		return "{\"s\":\"1\", \"m\":\"account created successfully\"}";
 	}
 }

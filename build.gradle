@@ -39,4 +39,7 @@ dependencies {
 //    testImplementation('org.springframework.security:spring-security-test')
     testImplementation('io.cucumber:cucumber-java:4.2.0')
     testImplementation('io.cucumber:cucumber-junit:4.2.0')
+    testImplementation('org.assertj:assertj-core:3.6.2')
+    testImplementation('org.skyscreamer:jsonassert:1.5.0')
+    testImplementation('io.cucumber:cucumber-spring:4.2.0')
 }
