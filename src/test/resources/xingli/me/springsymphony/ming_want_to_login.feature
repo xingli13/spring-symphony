@@ -35,9 +35,10 @@ Feature:
       | 123                                   | 0    |
       | 1234567890345678956789078989898989089 | 0    |
       | 123456789                             | 1    |
+      | 12345678                              | 1    |
   Scenario: 如果用户名重复，失败
-    Given login with name "ming" and password "12345678"
-    And filling the the username "ming"
+    Given login with name "add" and password "12345678"
+    And filling the the username "add"
     And filling in the password "123456789"
     When press the button signUp
     Then he receive the status code "0"

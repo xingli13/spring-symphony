@@ -1,6 +1,8 @@
 package xingli.me.springsymphony;
 
+import org.junit.Rule;
 import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,4 +21,6 @@ import org.springframework.web.context.WebApplicationContext;
 public class AbstractSpringContextTest {
 	@Autowired
 	protected WebApplicationContext wac;
+	@Rule
+	protected MockitoRule rule;
 }

@@ -1,50 +1,49 @@
 package xingli.me.springsymphony.cumcumber;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import xingli.me.springsymphony.AbstractSpringContextTest;
+import xingli.me.springsymphony.controlller.UserController;
 import xingli.me.springsymphony.domain.User;
-
-import javax.annotation.Resource;
+import xingli.me.springsymphony.repository.UserDao;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.*;
 /**
  * @author xingli13
  * @date 2018/11/1
  */
 public class CreateAccountCucumber extends AbstractSpringContextTest {
 	private MockMvc mockMvc;
-//	private TransactionStatus txStatus;
 
 	private User user = new User();
 	private String s;
-
-//	@Resource
-//	private PlatformTransactionManager txMgr;
-
+	@InjectMocks
+	UserController controller;
+	// TODO: 2018/11/2  是用来提高效率的，想办法降低测试复杂度，精简不必要操作
+	// TODO: 2018/11/2 不必要的操作，不要使用web环境
+	@Mock
+	UserDao dao;
 	@Before
 	public void setUp() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-//		txStatus = txMgr.getTransaction(new DefaultTransactionDefinition());
+		dao = mock(UserDao.class);
+		when(dao.findFirstByUsername("ming"))
+				.thenReturn(null).thenReturn(new User());
 	}
-//	@After
-//	public void rollbackAfterHook(){
-//		txMgr.rollback(txStatus);
-//	}
+
 	@Given("filling in the password {string}")
 	public void fillingInThePasswordAbc(String arg0) throws Throwable {
 		user.setPassword(arg0);
