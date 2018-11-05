@@ -17,10 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ContextConfiguration
-@WebAppConfiguration
-public class AbstractSpringContextTest {
-	@Autowired
-	protected WebApplicationContext wac;
+public class SpringCucumberTest {
 	@Rule
 	protected MockitoRule rule;
 }
