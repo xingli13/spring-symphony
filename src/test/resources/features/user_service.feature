@@ -1,17 +1,41 @@
 Feature:
-  In order to create a post, as a new user, ming want to create a new account.
-  1. 对于用户名、密码验证
-  2. 储存的密码为加密的
-  3. 用户名不可重复
-  4. 登录方式：邮箱、用户名、密码登录
 
-  Scenario Outline password: 当前简单密码验证
-    Given password is <password>
-    When validate
-    Then binding result is <isNull>
-    And message is <msg>
+  Scenario Outline: 邮箱的格式
+    Given get a example user
+    And set email "<email>"
+    When validate user
+    Then get "<msg>"
     Examples:
-      | password                              | isNull | msg              |
-      | abc                                   | false  | invalid password |
-      | 1234567890345678956789078989898989089 | false  | invalid password |
-      | 12345678                              | true   |                  |
+      | email         | msg |
+      | lxxdev@qq.com | yes |
+
+  Scenario Outline: 用户名的格式
+    Given get a example user
+    And set name "<name>"
+    When validate user
+    Then get "<msg>"
+    Examples:
+      | name | msg |
+      | xing | yes |
+      | xing | no |
+
+  Scenario Outline: 密码的格式
+    Given get a example user
+    And set password "<pwd>"
+    When validate user
+    Then get "<msg>"
+    Examples:
+      | pwd    | msg |
+      | 123456 | yes |
+      | xing | no |
+
+#todo 测试用户名或邮箱不得重复
+#todo 添加发送邮件的程序并测试
+#todo 根据某个惟一值
+  Scenario Outline: 根据链接即可验证成功,成功与否,失败信息
+    Given set user "<name>",verify_id "<vId>"
+    When call validate
+    Then get "<response>"
+    Examples:
+      | name | vId | response |
+      | abc  | 123 | yes      |
