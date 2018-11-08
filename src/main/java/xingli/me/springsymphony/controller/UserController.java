@@ -1,14 +1,11 @@
-package xingli.me.springsymphony.controlller;
+package xingli.me.springsymphony.controller;
 
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xingli.me.springsymphony.config.JsonWrapper;
-import xingli.me.springsymphony.config.SymException;
 import xingli.me.springsymphony.domain.User;
-import xingli.me.springsymphony.repository.UserDao;
 import xingli.me.springsymphony.service.UserService;
 
 import javax.annotation.Resource;

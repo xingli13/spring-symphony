@@ -1,5 +1,6 @@
 package xingli.me.springsymphony.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,7 +40,14 @@ public class TokenUtils {
 		return builder.compact();
 	}
 
-	public static SecretKey generateKey() {
+	public static Claims parseToken(String token) {
+		SecretKey key = generateKey();
+		return Jwts.parser()
+				.setSigningKey(key)
+				.parseClaimsJws(token).getBody();
+	}
+
+	private static SecretKey generateKey() {
 		String stringKey = AppConfig.getConfig("secret");
 		byte[] encodeKey = Base64.getDecoder().decode(stringKey);
 		return new SecretKeySpec(encodeKey, 0, encodeKey.length, "AES");
