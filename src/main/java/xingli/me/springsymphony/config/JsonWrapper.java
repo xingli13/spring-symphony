@@ -1,10 +1,7 @@
 package xingli.me.springsymphony.config;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Component;
-import xingli.me.springsymphony.util.JsonUtil;
+import xingli.me.springsymphony.util.JsonUtils;
 
 import javax.annotation.Resource;
 
@@ -15,7 +12,7 @@ import javax.annotation.Resource;
 @Component
 public class JsonWrapper {
 	@Resource
-	JsonUtil json;
+	JsonUtils json;
 
 	public String success(Object obj) {
 		Msg msg = new Msg("1", json.writeValueAsString(obj), "", "");

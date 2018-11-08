@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * @date 2018/11/1
  */
 @Component
-public class JsonUtil {
+public class JsonUtils {
 	@Resource
 	ObjectMapper mapper;
 

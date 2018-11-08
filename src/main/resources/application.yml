@@ -13,5 +13,15 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+    open-in-view: false
+  mail:
+    host: smtp.163.com
+    username:
+    password:
+    default-encoding: UTF-8
 server:
   port: 8090
+
+
+appConfig:
+  host: http://127.0.0.1

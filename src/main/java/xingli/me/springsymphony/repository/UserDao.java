@@ -12,11 +12,19 @@ import xingli.me.springsymphony.domain.User;
 @Repository
 @Transactional
 public interface UserDao extends JpaRepository<User, Integer> {
+
+	/**
+	 * 根据用户名或邮箱获取用户
+	 * @param email 邮箱
+	 * @param username 用户名
+	 * @return 用户
+	 */
+	User findByEmailOrUsername(String email, String username);
+
 	/**
 	 * 根据用户名获取用户
-	 * @param username username
-	 * @return 如果存在该username，返回user，否则为空
+	 * @param username 用户名
+	 * @return 用户
 	 */
-	User findFirstByUsername(String username);
-
+	User findByUsername(String username);
 }

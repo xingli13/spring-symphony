@@ -1,16 +1,18 @@
 package xingli.me.springsymphony.controlller;
 
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xingli.me.springsymphony.config.JsonWrapper;
 import xingli.me.springsymphony.config.SymException;
 import xingli.me.springsymphony.domain.User;
 import xingli.me.springsymphony.repository.UserDao;
+import xingli.me.springsymphony.service.UserService;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @author xingli13
@@ -22,16 +24,31 @@ public class UserController {
 	@Resource
 	JsonWrapper jsonWrapper;
 	@Resource
-	UserDao userDao;
+	UserService userService;
 
 	@PostMapping("/join")
+	@ApiOperation(value = "新用户注册", notes = "根据user来创建新用户")
+	@ApiImplicitParam(name = "user", value = "用户实体", required = true, dataType = "User")
 	public String newUserJoin(@RequestBody @Validated User user) {
 		log.info(user.toString());
-		if (userDao.findFirstByUsername(user.getUsername()) == null) {
-			userDao.save(user);
-			return jsonWrapper.success(user.getUsername());
-		} else {
-			throw new SymException("002");
-		}
+		userService.userJoin(user);
+		return jsonWrapper.success(user.getUsername());
+	}
+
+	@ApiOperation(value = "用户激活自己的账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "verifyId", value = "激活的id", required = true, dataType = "String")
+	})
+	@GetMapping("/confirm_verification/{verifyId}")
+	public String verifyEmail(@PathVariable String verifyId) {
+		userService.verifyEmail(verifyId);
+		return jsonWrapper.success("成功激活");
+	}
+
+	@PostMapping("/login")
+	@ApiOperation(value = "用户登录", notes = "根据邮箱或用户名+密码的形式登录")
+	public String login(@RequestBody Map<String, String> param) {
+		String token = userService.login(param.get("username"), param.get("password"));
+		return jsonWrapper.success("{'token' : '" + token + "'}");
 	}
 }
