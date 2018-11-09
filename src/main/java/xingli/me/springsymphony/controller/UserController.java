@@ -46,6 +46,6 @@ public class UserController {
 	@ApiOperation(value = "用户登录", notes = "根据邮箱或用户名+密码的形式登录")
 	public String login(@RequestBody Map<String, String> param) {
 		String token = userService.login(param.get("username"), param.get("password"));
-		return jsonWrapper.success("{'token' : '" + token + "'}");
+		return jsonWrapper.success("{\"token\" : \"" + token + "\"}");
 	}
 }

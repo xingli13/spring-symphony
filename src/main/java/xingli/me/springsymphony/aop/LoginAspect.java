@@ -48,7 +48,7 @@ public class LoginAspect {
 	private String getToken(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {
-			if ("user_token".equalsIgnoreCase(cookie.getName())) {
+			if ("access_token".equalsIgnoreCase(cookie.getName())) {
 				return cookie.getValue();
 			}
 		}
